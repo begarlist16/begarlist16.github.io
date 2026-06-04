@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arsip Begarlist 16</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:        #0a0a0c;
+      --bg2:       #111114;
+      --bg3:       #1a1a1f;
+      --surface:   #1e1e24;
+      --border:    #2a2a32;
+      --text:      #f0f0f4;
+      --text2:     #888896;
+      --text3:     #555560;
+      --accent:    #e8ff47;
+      --accent2:   #c8df20;
+      --radius:    10px;
+      --font:      'DM Sans', sans-serif;
+      --font-disp: 'DM Serif Display', serif;
+      --trans:     0.2s ease;
+    }
+
+    [data-theme="light"] {
+      --bg:      #f6f6f8;
+      --bg2:     #ededf0;
+      --bg3:     #e4e4e8;
+      --surface: #ffffff;
+      --border:  #d8d8de;
+      --text:    #12121a;
+      --text2:   #666674;
+      --text3:   #aaaabc;
+      --accent:  #6a5acd;
+      --accent2: #5244b0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background var(--trans), color var(--trans);
+    }
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--text);
+      z-index: 100;
+      transition: background var(--trans), border-color var(--trans), transform var(--trans);
+    }
+
+    .theme-toggle:hover {
+      background: var(--surface);
+      border-color: var(--accent);
+      transform: scale(1.08);
+    }
+
+    /* ── MAIN CENTERED LAYOUT ── */
+    .page-center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+      gap: 48px;
+    }
+
+    /* ── TITLE BLOCK ── */
+    .title-block {
+      text-align: center;
+    }
+
+    .title-label {
+      font-size: 12px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .title-main {
+      font-family: var(--font-disp);
+      font-size: clamp(28px, 6vw, 44px);
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .title-accent {
+      color: var(--accent);
+    }
+
+    /* ── BUTTON GRID ── */
+    .button-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .archive-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 32px 24px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      text-decoration: none;
+      color: var(--text);
+      cursor: pointer;
+      transition:
+        background var(--trans),
+        border-color var(--trans),
+        transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow var(--trans);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .archive-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity var(--trans);
+      border-radius: 13px;
+    }
+
+    .archive-btn:hover {
+      background: var(--surface);
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .archive-btn:hover .btn-icon {
+      animation: iconBounce 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .archive-btn:active {
+      transform: translateY(-1px);
+    }
+
+    .btn-icon {
+      font-size: 38px;
+      display: block;
+      line-height: 1;
+    }
+
+    .btn-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text2);
+      letter-spacing: 0.3px;
+      transition: color var(--trans);
+    }
+
+    .archive-btn:hover .btn-label {
+      color: var(--text);
+    }
+
+    .btn-arrow {
+      font-size: 11px;
+      color: var(--text3);
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity var(--trans), transform var(--trans), color var(--trans);
+    }
+
+    .archive-btn:hover .btn-arrow {
+      opacity: 1;
+      transform: translateY(0);
+      color: var(--accent);
+    }
+
+    @keyframes iconBounce {
+      0%   { transform: scale(1) translateY(0); }
+      40%  { transform: scale(1.2) translateY(-6px); }
+      70%  { transform: scale(0.95) translateY(2px); }
+      100% { transform: scale(1) translateY(0); }
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 20px 24px;
+      font-size: 12px;
+      color: var(--text3);
+      letter-spacing: 0.3px;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 480px) {
+      .page-center {
+        gap: 36px;
+        padding: 40px 20px;
+      }
+
+      .button-grid {
+        gap: 12px;
+        max-width: 100%;
+      }
+
+      .archive-btn {
+        padding: 26px 16px;
+        gap: 12px;
+      }
+
+      .btn-icon {
+        font-size: 32px;
+      }
+
+      .btn-label {
+        font-size: 13px;
+      }
+
+      .theme-toggle {
+        top: 12px;
+        right: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dark/Light Toggle -->
+  <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light mode">
+    🌙
+  </button>
+
+  <!-- Main Content -->
+  <main class="page-center">
+
+    <div class="title-block">
+      <p class="title-label">Koleksi Kenangan</p>
+      <h1 class="title-main">Arsip <span class="title-accent">Begarlist 16</span></h1>
+    </div>
+
+    <nav class="button-grid" aria-label="Navigasi arsip">
+
+      <a class="archive-btn" href="https://begarlist16.github.io/photo/" aria-label="Buka arsip foto">
+        <span class="btn-icon">📷</span>
+        <span class="btn-label">Foto</span>
+        <span class="btn-arrow">↗ Buka</span>
+      </a>
+
+      <a class="archive-btn" href="https://begarlist16.github.io/video/" aria-label="Buka arsip video">
+        <span class="btn-icon">🎬</span>
+        <span class="btn-label">Video</span>
+        <span class="btn-arrow">↗ Buka</span>
+      </a>
+
+    </nav>
+
+  </main>
+
+  <footer class="footer">
+    Begarlist 16 &mdash; Arsip Kenangan
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+
+    // Load saved preference
+    const saved = localStorage.getItem('bl16-theme');
+    if (saved) {
+      html.setAttribute('data-theme', saved);
+      toggle.textContent = saved === 'light' ? '☀️' : '🌙';
+    }
+
+    toggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') !== 'light';
+      const next = isDark ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      toggle.textContent = next === 'light' ? '☀️' : '🌙';
+      localStorage.setItem('bl16-theme', next);
+    });
+  </script>
+
+</body>
+</html>
