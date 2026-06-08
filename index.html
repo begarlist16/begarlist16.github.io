@@ -222,21 +222,21 @@
     /* ── CONTRIBUTE LINK ── */
     .contribute-link {
       font-size: 13px;
-      color: var(--text3);
+      color: var(--accent);
       text-decoration: none;
       letter-spacing: 0.2px;
-      transition: color var(--trans);
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       padding: 4px 0;
       border-bottom: 1px solid transparent;
-      transition: color var(--trans), border-color var(--trans);
+      opacity: 0.75;
+      transition: opacity var(--trans), border-color var(--trans);
     }
 
     .contribute-link:hover {
-      color: var(--text2);
-      border-bottom-color: var(--text3);
+      opacity: 1;
+      border-bottom-color: var(--accent);
     }
 
     /* ── FOOTER ── */
