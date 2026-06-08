@@ -116,13 +116,22 @@
       color: var(--accent);
     }
 
+    /* ── NAV WRAPPER ── */
+    .nav-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      max-width: 520px;
+    }
+
     /* ── BUTTON GRID ── */
     .button-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
       width: 100%;
-      max-width: 520px;
     }
 
     .archive-btn {
@@ -210,6 +219,26 @@
       100% { transform: scale(1) translateY(0); }
     }
 
+    /* ── CONTRIBUTE LINK ── */
+    .contribute-link {
+      font-size: 13px;
+      color: var(--text3);
+      text-decoration: none;
+      letter-spacing: 0.2px;
+      transition: color var(--trans);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 0;
+      border-bottom: 1px solid transparent;
+      transition: color var(--trans), border-color var(--trans);
+    }
+
+    .contribute-link:hover {
+      color: var(--text2);
+      border-bottom-color: var(--text3);
+    }
+
     /* ── FOOTER ── */
     .footer {
       border-top: 1px solid var(--border);
@@ -234,7 +263,6 @@
 
       .button-grid {
         gap: 12px;
-        max-width: 100%;
       }
 
       .archive-btn {
@@ -272,30 +300,40 @@
       <h1 class="title-main">Arsip <span class="title-accent">Begarlist 16</span></h1>
     </div>
 
-    <nav class="button-grid" aria-label="Navigasi arsip">
+    <nav class="nav-wrapper" aria-label="Navigasi arsip">
 
-      <a class="archive-btn" href="https://begarlist16.github.io/photo/" aria-label="Buka arsip photo">
-        <span class="btn-icon">📷</span>
-        <span class="btn-label">Photo</span>
-        <span class="btn-arrow">↗ Buka</span>
-      </a>
+      <div class="button-grid">
+        <a class="archive-btn" href="https://begarlist16.github.io/photo/" aria-label="Buka arsip photo">
+          <span class="btn-icon">📷</span>
+          <span class="btn-label">Photo</span>
+          <span class="btn-arrow">↗ Buka</span>
+        </a>
 
-      <a class="archive-btn" href="https://begarlist16.github.io/video/" aria-label="Buka arsip video">
-        <span class="btn-icon">🎬</span>
-        <span class="btn-label">Video</span>
-        <span class="btn-arrow">↗ Buka</span>
-      </a>
+        <a class="archive-btn" href="https://begarlist16.github.io/video/" aria-label="Buka arsip video">
+          <span class="btn-icon">🎬</span>
+          <span class="btn-label">Video</span>
+          <span class="btn-arrow">↗ Buka</span>
+        </a>
 
-      <a class="archive-btn" href="/eyearbook/" aria-label="Buka E-Yearbook">
-        <span class="btn-icon">📖</span>
-        <span class="btn-label">E-Yearbook</span>
-        <span class="btn-arrow">↗ Buka</span>
-      </a>
+        <a class="archive-btn" href="/eyearbook/" aria-label="Buka E-Yearbook">
+          <span class="btn-icon">📖</span>
+          <span class="btn-label">E-Yearbook</span>
+          <span class="btn-arrow">↗ Buka</span>
+        </a>
 
-      <a class="archive-btn" href="/yearbook/" aria-label="Buka Yearbook Data">
-        <span class="btn-icon">💾</span>
-        <span class="btn-label">Yearbook Data</span>
-        <span class="btn-arrow">↗ Buka</span>
+        <a class="archive-btn" href="/yearbook/" aria-label="Buka Yearbook Data">
+          <span class="btn-icon">💾</span>
+          <span class="btn-label">Yearbook Data</span>
+          <span class="btn-arrow">↗ Buka</span>
+        </a>
+      </div>
+
+      <a
+        class="contribute-link"
+        href="mailto:8oss7g1zb@mozmail.com?subject=Kontribusi%20Arsip%20Begarlist%2016"
+        aria-label="Kirim email untuk kontribusi arsip"
+      >
+        ✉ Ingin kontribusi? Kirim file/link data ke sini
       </a>
 
     </nav>
