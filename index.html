@@ -239,6 +239,101 @@
       border-bottom-color: var(--accent);
     }
 
+    /* ── COMMENTS SECTION ── */
+    .comments-section {
+      width: 100%;
+      max-width: 680px;
+      padding: 0 24px 48px;
+    }
+
+    .comments-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .comments-title {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text3);
+      font-weight: 500;
+    }
+
+    .comments-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text2);
+      cursor: pointer;
+      transition: background var(--trans), border-color var(--trans), color var(--trans);
+    }
+
+    .comments-toggle-btn:hover {
+      background: var(--surface);
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .comments-toggle-btn .toggle-icon {
+      font-size: 10px;
+      transition: transform 0.25s ease;
+    }
+
+    .comments-toggle-btn.collapsed .toggle-icon {
+      transform: rotate(-90deg);
+    }
+
+    .comments-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 20px;
+    }
+
+    .comments-body {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 24px;
+      overflow: hidden;
+      transition: border-color var(--trans);
+    }
+
+    .comments-body:hover {
+      border-color: var(--border);
+    }
+
+    /* Collapse animation */
+    .comments-collapsible {
+      display: grid;
+      grid-template-rows: 1fr;
+      transition: grid-template-rows 0.3s ease, opacity 0.25s ease;
+      opacity: 1;
+    }
+
+    .comments-collapsible.collapsed {
+      grid-template-rows: 0fr;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .comments-collapsible-inner {
+      overflow: hidden;
+    }
+
+    /* Disqus iframe color-scheme nudge */
+    #disqus_thread {
+      color-scheme: auto;
+    }
+
     /* ── FOOTER ── */
     .footer {
       border-top: 1px solid var(--border);
@@ -281,6 +376,14 @@
       .theme-toggle {
         top: 12px;
         right: 12px;
+      }
+
+      .comments-section {
+        padding: 0 16px 40px;
+      }
+
+      .comments-body {
+        padding: 20px 16px;
       }
     }
   </style>
@@ -340,15 +443,47 @@
 
   </main>
 
+  <!-- Comments Section (outside page-center so it sits below naturally) -->
+  <section class="comments-section" aria-label="Komentar">
+
+    <div class="comments-header">
+      <span class="comments-title">Komentar</span>
+      <button
+        class="comments-toggle-btn"
+        id="commentsToggle"
+        aria-expanded="true"
+        aria-controls="commentsCollapsible"
+      >
+        <span class="toggle-icon">▾</span>
+        <span class="toggle-label">Sembunyikan</span>
+      </button>
+    </div>
+
+    <div class="comments-divider"></div>
+
+    <div
+      class="comments-collapsible"
+      id="commentsCollapsible"
+      role="region"
+    >
+      <div class="comments-collapsible-inner">
+        <div class="comments-body">
+          <div id="disqus_thread"></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
   <footer class="footer">
     Begarlist 16 &mdash; Arsip Kenangan
   </footer>
 
   <script>
+    /* ── THEME TOGGLE ── */
     const toggle = document.getElementById('themeToggle');
     const html = document.documentElement;
 
-    // Load saved preference
     const saved = localStorage.getItem('bl16-theme');
     if (saved) {
       html.setAttribute('data-theme', saved);
@@ -362,7 +497,50 @@
       toggle.textContent = next === 'light' ? '☀️' : '🌙';
       localStorage.setItem('bl16-theme', next);
     });
+
+    /* ── COMMENTS TOGGLE ── */
+    const commentsToggle = document.getElementById('commentsToggle');
+    const commentsCollapsible = document.getElementById('commentsCollapsible');
+    const toggleLabel = commentsToggle.querySelector('.toggle-label');
+
+    // Default: shown
+    let commentsVisible = true;
+
+    commentsToggle.addEventListener('click', () => {
+      commentsVisible = !commentsVisible;
+
+      if (commentsVisible) {
+        commentsCollapsible.classList.remove('collapsed');
+        commentsToggle.classList.remove('collapsed');
+        commentsToggle.setAttribute('aria-expanded', 'true');
+        toggleLabel.textContent = 'Sembunyikan';
+      } else {
+        commentsCollapsible.classList.add('collapsed');
+        commentsToggle.classList.add('collapsed');
+        commentsToggle.setAttribute('aria-expanded', 'false');
+        toggleLabel.textContent = 'Tampilkan';
+      }
+    });
+
+    /* ── DISQUS ── */
+    // TODO: Replace YOUR_DISQUS_SHORTNAME with your actual Disqus shortname
+    var disqus_config = function () {
+      this.page.url = window.location.href;
+      this.page.identifier = 'begarlist16-home';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://begarlist16.com/embed.js'; // ← ganti YOUR_DISQUS_SHORTNAME
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
   </script>
+
+  <noscript>
+    Aktifkan JavaScript untuk melihat komentar dari
+    <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+  </noscript>
 
 </body>
 </html>
